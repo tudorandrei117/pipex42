@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tudor <tudor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tburlacu <tburlacu@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:50 by tudor             #+#    #+#             */
-/*   Updated: 2023/03/27 15:43:04 by tudor            ###   ########.fr       */
+/*   Updated: 2023/05/14 22:12:31 by tburlacu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+char	*path_finder(char **cmds, char **envp)
+{
+	char	*cmd;
+	char	*path;
+	char	*bin;
+
+	cmd = cmds[0];
+	path = find_path(envp);
+	if (!path)
+		return (cmd);
+	bin = search_executable(cmd, path);
+	if (!bin)
+		return (cmd);
+	return (bin);
+}
 
 int	ft_strlen(const char *str)
 {
@@ -46,10 +62,10 @@ void	parent(char **argv, int *pipe_fd, char **envp, int fd)
 
 int	main(int argc, char **argv, char **envp)
 {
-	int file1;
-	int file2;
-	int pipe_fd[2];
-	pid_t pid;
+	int		file1;
+	int		file2;
+	int		pipe_fd[2];
+	pid_t	pid;
 
 	if (argc != 5)
 		ft_error("Invalid parameters!\n");

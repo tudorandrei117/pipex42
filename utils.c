@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tudor <tudor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tburlacu <tburlacu@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:15:14 by tudor             #+#    #+#             */
-/*   Updated: 2023/03/26 22:42:33 by tudor            ###   ########.fr       */
+/*   Updated: 2023/05/14 22:12:41 by tburlacu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	str_ichr(const char *s, int c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -81,20 +81,4 @@ char	*search_executable(char *cmd, char *path)
 		path += str_ichr(path, ':') + 1;
 	}
 	return (NULL);
-}
-
-char	*path_finder(char **cmds, char **envp)
-{
-	char	*cmd;
-	char	*path;
-	char	*bin;
-
-	cmd = cmds[0];
-	path = find_path(envp);
-	if (!path)
-		return (cmd);
-	bin = search_executable(cmd, path);
-	if (!bin)
-		return (cmd);
-	return (bin);
 }
