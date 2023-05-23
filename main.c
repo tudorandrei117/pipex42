@@ -6,7 +6,7 @@
 /*   By: tburlacu <tburlacu@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 22:00:50 by tudor             #+#    #+#             */
-/*   Updated: 2023/05/14 22:12:31 by tburlacu         ###   ########.fr       */
+/*   Updated: 2023/05/22 01:19:53 by tburlacu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	child(char **argv, int *pipe_fd, char **envp, int fd)
 	close(pipe_fd[0]);
 	cmds = ft_split(argv[2], ' ');
 	execve(path_finder(cmds, envp), cmds, NULL);
+	if (execvp(argv[2], &argv[2]) == -1)
+	{
+		ft_error("Error executing command\n");
+	}
 }
 
 void	parent(char **argv, int *pipe_fd, char **envp, int fd)
@@ -58,6 +62,10 @@ void	parent(char **argv, int *pipe_fd, char **envp, int fd)
 	close(pipe_fd[1]);
 	cmds = ft_split(argv[3], ' ');
 	execve(path_finder(cmds, envp), cmds, NULL);
+	if (execvp(argv[2], &argv[2]) == -1)
+	{
+		ft_error("Error executing command\n");
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
